@@ -18,4 +18,13 @@ const registerValidator = Joi.object({
     description: Joi.string(),
   })
 
+  const articleValidator = Joi.object({
+    title : Joi.string().required().min(4).max(50),
+    description : Joi.string(),
+    photo : Joi.string(),
+    price : Joi.number(). required(),
+
+
+  })
+
   module.exports = {registerValidator, loginValidator, categorieValidator};

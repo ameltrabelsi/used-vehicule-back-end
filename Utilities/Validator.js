@@ -5,7 +5,7 @@ const registerValidator = Joi.object({
     lastName: Joi.string(),
     email: Joi.string().email().required(),
     password: Joi.string().required().min(4),
-    role: Joi.string()
+    
   });
   
   const loginValidator = Joi.object({

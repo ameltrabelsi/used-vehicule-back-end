@@ -31,4 +31,16 @@ const registerValidator = Joi.object({
     name: Joi.string().required(),
   })
 
-  module.exports = {registerValidator, loginValidator, categorieValidator};
+  const styleValidator = Joi.object({
+    name : Joi.string().required(),
+    description : Joi.string(),
+  })
+
+  module.exports = {
+    registerValidator,
+    loginValidator, 
+    categorieValidator,
+    articleValidator,
+    brandValidator,
+    styleValidator
+  };

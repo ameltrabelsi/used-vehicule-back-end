@@ -6,13 +6,14 @@ const { registerValidator, loginValidator } = require("../Utilities/Validator");
 
 const getUsers = async (req,res) =>{
     try {
-        const users = await User.find();
+        const users = await User.find().select('-password');
         return res.json(users);
     } catch (error) {
         console.log(error);
         return res.json(error);
       }
 };
+
 
 const register = async (req, res) => {
     try {
@@ -38,14 +39,8 @@ const register = async (req, res) => {
         email,
         password: hashedPassword,
       });
-      newUser.password = undefined;
-      const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
-        expiresIn: "1d",
-      });
       res.json({
-        message: "Account successfully created",
-        user: newUser,
-        token,
+        message: "Account successfully created"
       });
     } catch (error) {
       console.log(error);
@@ -63,7 +58,7 @@ const register = async (req, res) => {
             const user = await User.findOne({ email });
             if (!user) {
                 res.status(401).json({
-                    error: 'Wrong email and/or password'
+                  error: 'Wrong email and/or password'
                 });
                 return;
             }
@@ -75,7 +70,7 @@ const register = async (req, res) => {
                 return;
             }
             user.password = undefined;
-            const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET, {expiredIn:"1d"});
+            const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET, {expiresIn:"1d"});
             res.status(200).json({
                 message: `Welcome ${user.firstName}`,
                 user,

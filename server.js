@@ -2,29 +2,40 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
 const usersRouter = require('./routes/users')
-const categorieRouter = require ('./routes/categories')
+const categoriesRouter = require('./routes/categories')
+const articlesRouter = require('./routes/articles')
+const brandsRouter = require ('./routes/brands')
+const stylesRouter = require ('./routes/styles')
 
 require('dotenv').config();
 
 const app = express();
 
 app.use(bodyParser.json());
+// app.use(express.json());
+
 
 app.get("/", (req, res) => {
-  res.json({ message: "App is working" });
+    res.json({ message: "App is working" });
 });
 
 
 app.use("/users", usersRouter);
-app.use("/categorie",categorieRouter)
+app.use("/categories", categoriesRouter)
+app.use("/articles", articlesRouter)
+app.use("/brands", brandsRouter )
+app.use("/styles", stylesRouter)
+
+
 const PORT = process.env.PORT || 5000;
+
 mongoose.connect(process.env.DB_CONNECTION)
-        .then(() => {
-            console.log('Successfully connected to MongoDB');
-            app.listen(PORT, () => {
-                console.log(`Server is listening on port ${PORT}`);
-            });
-        })
-        .catch(error => {
-            console.log(error);
-        })
+    .then(() => {
+        console.log('Successfully connected to MongoDB');
+        app.listen(PORT, () => {
+            console.log(`Server is listening on port ${PORT}`);
+        });
+    })
+    .catch(error => {
+        console.log(error);
+    })

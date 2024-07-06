@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/:id', getArticle),
 router.get('/', getAllAriticle),
 router.post('/', checkAuth, multer, createArticle),
-router.put('/', checkAuth, updateArticle),
+router.put('/:id', checkAuth, updateArticle),
 router.delete('/',checkAuth, deleteArticle)
 
 module.exports = router;

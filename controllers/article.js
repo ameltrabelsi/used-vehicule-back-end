@@ -1,9 +1,10 @@
 const {articleValidator} = require ("../Utilities/Validator");
+const cloudinary = require('../Utilities/cloudinary-config')
 const Article = require ("../models/article");
 
 const getArticle = async (req, res) => {
     try {
-        const article = await Article.findById(req.params.id);
+        const article = await Article.findById(req.params.id).populate('user category', '-password -__v');
         if (article) {
             res.status(200).json(article);
         } else {
@@ -16,7 +17,7 @@ const getArticle = async (req, res) => {
 
 const getAllAriticle = async (req, res)=>{
     try {
-         const articles = await Article.find()
+         const articles = await Article.find().populate('user category', '-password -__v');
     res.status(200).json(articles)
     } catch (error) {
         res.status(500).json({error: error.message})
@@ -39,13 +40,15 @@ const createArticle = async (req, res) => {
                 description: req.body.description,
                 photo: upload.secure_url,
                 price: req.body.price,
+                category: req.body.categoryId,
                 user: req.user._id
             });
             const savedArticle = await newArticle.save();
-            await savedArticle.populate('user', '-password -__v').execPopulate();
+            const article = await Article.findById(savedArticle._id).populate('user category', '-password -__v');
+           // await savedArticle.populate('user', '-password -__v').execPopulate();
             res.status(201).json({
                 message: "Article created successfully",
-                newArticle: savedArticle
+                newArticle: article
             });
         }
     } catch (error) {
@@ -61,10 +64,11 @@ const updateArticle = async (req, res) => {
         if (validationResult.error) {
             res.status(400).json(validationResult);
         } else {
+            req.body.category = req.body.categoryId;
             const article = await Article.findOneAndUpdate(
                 { _id: articleToUpdateId, user: req.user._id },
                 { $set: req.body },
-                { new: true, populate: { path: 'user', select: '-password -__v' } }
+                { new: true, populate: { path: 'user category', select: '-password -__v' } }
             );
             if (!article) {
                 res.status(404).json({ error: "Article not found" });

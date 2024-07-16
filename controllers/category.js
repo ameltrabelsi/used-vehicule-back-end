@@ -36,7 +36,7 @@ const createCategory = async (req, res) => {
                 name: req.body.name,
                 description: req.body.description
             })
-             await category.save()
+            const savedCategory = await category.save()
             res.status(201).json({
                 message: "Category created successfully",
                 category: savedCategory

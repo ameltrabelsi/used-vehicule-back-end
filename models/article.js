@@ -11,9 +11,9 @@ const ArticleSchema = new mongoose.Schema({
         ref: 'User'
     },
    
-    categorie: {
+    category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Categorie'
+        ref: 'Category'
 
     },
 

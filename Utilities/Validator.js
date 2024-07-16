@@ -14,7 +14,7 @@ const registerValidator = Joi.object({
     password: Joi.string().required().min(4),
   });
 
-  const categorieValidator = Joi.object({
+  const categoryValidator = Joi.object({
     name : Joi.string().required().min(4),
     description: Joi.string(),
   })
@@ -25,7 +25,7 @@ const registerValidator = Joi.object({
     description : Joi.string(),
     photo : Joi.string(),
     price : Joi.number(). required(),
-
+    categoryId: Joi.string().required()
 
   })
 
@@ -34,7 +34,7 @@ const registerValidator = Joi.object({
   module.exports = {
     registerValidator,
     loginValidator, 
-    categorieValidator,
+    categoryValidator,
     articleValidator,
     
   };

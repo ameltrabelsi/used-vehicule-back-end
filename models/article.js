@@ -1,7 +1,8 @@
 const mongoose = require ("mongoose");
 
 const ArticleSchema = new mongoose.Schema({
-    title: {type: String, required: true},
+    brand: {type: String, required: true},
+    style: {type: String, required: true},
     description: {type: String},
     photo: String,
     price: {type: Number, required: true},

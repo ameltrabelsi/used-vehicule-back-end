@@ -5,6 +5,7 @@ const registerValidator = Joi.object({
     lastName: Joi.string(),
     email: Joi.string().email().required(),
     password: Joi.string().required().min(4),
+    phoneNumber: Joi.number().required().min(8),
     
   });
   
@@ -19,7 +20,8 @@ const registerValidator = Joi.object({
   })
 
   const articleValidator = Joi.object({
-    title : Joi.string().required().min(4).max(50),
+    brand : Joi.string().required().min(4).max(50),
+    style: Joi.string().required(),
     description : Joi.string(),
     photo : Joi.string(),
     price : Joi.number(). required(),
@@ -27,20 +29,12 @@ const registerValidator = Joi.object({
 
   })
 
-  const brandValidator = Joi.object({
-    name: Joi.string().required(),
-  })
-
-  const styleValidator = Joi.object({
-    name : Joi.string().required(),
-    description : Joi.string(),
-  })
+  
 
   module.exports = {
     registerValidator,
     loginValidator, 
     categorieValidator,
     articleValidator,
-    brandValidator,
-    styleValidator
+    
   };

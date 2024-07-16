@@ -4,8 +4,7 @@ const bodyParser = require("body-parser");
 const usersRouter = require('./routes/users')
 const categoriesRouter = require('./routes/categories')
 const articlesRouter = require('./routes/articles')
-const brandsRouter = require ('./routes/brands')
-const stylesRouter = require ('./routes/styles')
+
 
 require('dotenv').config();
 
@@ -23,8 +22,7 @@ app.get("/", (req, res) => {
 app.use("/users", usersRouter);
 app.use("/categories", categoriesRouter)
 app.use("/articles", articlesRouter)
-app.use("/brands", brandsRouter )
-app.use("/styles", stylesRouter)
+
 
 
 const PORT = process.env.PORT || 5000;

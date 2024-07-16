@@ -38,6 +38,7 @@ const register = async (req, res) => {
         lastName,
         email,
         password: hashedPassword,
+        phoneNumber,
       });
       res.json({
         message: "Account successfully created"

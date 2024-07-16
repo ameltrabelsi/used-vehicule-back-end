@@ -35,11 +35,13 @@ const createArticle = async (req, res) => {
             res.status(400).json(validationResult);
         } else {
             const newArticle = new Article({
-                title: req.body.title,
+                brand: req.body.brand,
+                style:req.body.style,
                 description: req.body.description,
                 photo: upload.secure_url,
                 price: req.body.price,
-                user: req.user._id
+                user: req.user._id,
+                category:req.category._id,
             });
             const savedArticle = await newArticle.save();
             await savedArticle.populate('user', '-password -__v').execPopulate();

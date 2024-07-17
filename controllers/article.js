@@ -15,7 +15,7 @@ const getArticle = async (req, res) => {
     }
 }
 
-const getAllAriticle = async (req, res)=>{
+const getAllArticle = async (req, res)=>{
     try {
          const articles = await Article.find().populate('user category', '-password -__v');
     res.status(200).json(articles)
@@ -45,7 +45,7 @@ const createArticle = async (req, res) => {
             });
             const savedArticle = await newArticle.save();
             const article = await Article.findById(savedArticle._id).populate('user category', '-password -__v');
-           // await savedArticle.populate('user', '-password -__v').execPopulate();
+           
             res.status(201).json({
                 message: "Article created successfully",
                 newArticle: article
@@ -68,7 +68,7 @@ const updateArticle = async (req, res) => {
             const article = await Article.findOneAndUpdate(
                 { _id: articleToUpdateId, user: req.user._id },
                 { $set: req.body },
-                { new: true, populate: { path: 'user category', select: '-password -__v' } }
+                { new: true, populate: { path: 'user category ', select: '-password -__v' } }
             );
             if (!article) {
                 res.status(404).json({ error: "Article not found" });
@@ -102,4 +102,4 @@ const deleteArticle = async (req, res)=> {
 }
 
 
-module.exports= {getArticle, getAllAriticle, createArticle, updateArticle, deleteArticle}
+module.exports= {getArticle, getAllArticle, createArticle, updateArticle, deleteArticle}

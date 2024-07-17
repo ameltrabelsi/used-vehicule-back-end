@@ -17,7 +17,7 @@ const getUsers = async (req,res) =>{
 
 const register = async (req, res) => {
     try {
-      const { firstName, lastName, email, password } = req.body;
+      const { firstName, lastName, email, phoneNumber, password} = req.body;
       const validationResult = registerValidator.validate(req.body, {
         abortEarly: false,
       });
@@ -37,11 +37,12 @@ const register = async (req, res) => {
         firstName,
         lastName,
         email,
-        password: hashedPassword,
         phoneNumber,
+        password: hashedPassword,
+        
       });
       res.json({
-        message: "Account successfully created"
+        message: "Account successfully created", newUser
       });
     } catch (error) {
       console.log(error);

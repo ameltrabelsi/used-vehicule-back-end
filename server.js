@@ -1,6 +1,7 @@
 const express = require('express');
+const cors = require ("cors");
 const mongoose = require('mongoose');
-const bodyParser = require("body-parser");
+
 const usersRouter = require('./routes/users')
 const categoriesRouter = require('./routes/categories')
 const articlesRouter = require('./routes/articles')
@@ -10,8 +11,9 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(bodyParser.json());
-// app.use(express.json());
+// app.use(bodyParser.json());
+app.use(express.json());
+app.use(cors({ credentials: true, origin: [ process.env.CLIENT_URL] }));
 
 
 app.get("/", (req, res) => {

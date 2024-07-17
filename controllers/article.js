@@ -16,8 +16,10 @@ const getArticle = async (req, res) => {
 }
 
 const getAllArticle = async (req, res)=>{
+    const category = req.query.category
+    console.log(category)
     try {
-         const articles = await Article.find().populate('user category', '-password -__v');
+    const articles = await Article.find(category ? {category: category}: {}).populate('user category', '-password -__v') 
     res.status(200).json(articles)
     } catch (error) {
         res.status(500).json({error: error.message})
@@ -41,7 +43,8 @@ const createArticle = async (req, res) => {
                 description: req.body.description,
                 photo: upload.secure_url,
                 price: req.body.price,
-                user: req.user._id
+                user: req.user._id,
+                category: req.body.categoryId
             });
             const savedArticle = await newArticle.save();
             const article = await Article.findById(savedArticle._id).populate('user category', '-password -__v');

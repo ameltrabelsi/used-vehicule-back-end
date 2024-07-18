@@ -16,10 +16,10 @@ const getArticle = async (req, res) => {
 }
 
 const getAllArticle = async (req, res)=>{
-    const category = req.query.category
-    console.log(category)
+    const categoryId = req.query.category
+    console.log(categoryId)
     try {
-    const articles = await Article.find(category ? {category: category}: {}).populate('user category', '-password -__v') 
+    const articles = await Article.find(categoryId ? {category: categoryId}: {}).populate('user category', '-password -__v') 
     res.status(200).json(articles)
     } catch (error) {
         res.status(500).json({error: error.message})

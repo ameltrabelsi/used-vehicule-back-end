@@ -16,10 +16,10 @@ const getArticle = async (req, res) => {
 }
 
 const getAllArticle = async (req, res)=>{
-    const categoryId = req.query.category
-    console.log(categoryId)
+    const category = req.query.category
+    // console.log(category)
     try {
-    const articles = await Article.find(categoryId ? {category: categoryId}: {}).populate('user category', '-password -__v') 
+    const articles = await Article.find(category ? {category: category}: {}).populate('user category', '-password -__v') 
     res.status(200).json(articles)
     } catch (error) {
         res.status(500).json({error: error.message})
@@ -51,7 +51,7 @@ const createArticle = async (req, res) => {
            
             res.status(201).json({
                 message: "Article created successfully",
-                newArticle: article
+                article
             });
         }
     } catch (error) {
@@ -71,7 +71,7 @@ const updateArticle = async (req, res) => {
             const article = await Article.findOneAndUpdate(
                 { _id: articleToUpdateId, user: req.user._id },
                 { $set: req.body },
-                { new: true, populate: { path: 'user category ', select: '-password -__v' } }
+                { new: true, populate: { path: 'user category', select: '-password -__v' } }
             );
             if (!article) {
                 res.status(404).json({ error: "Article not found" });

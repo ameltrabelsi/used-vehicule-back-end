@@ -56,7 +56,7 @@ const updateCategory = async (req, res) => {
         if (validationResult.error) {
             res.status(400).json(validationResult)
         } else {
-            const category = await Category.findOneAndUpdate({ _id: categUpdate, user: req.user._id}, { $set: req.body }, { new: true })
+            const category = await Category.findOneAndUpdate({ _id: categUpdate }, { $set: req.body }, { new: true })
             if (!category) {
                 res.status(404).json({ error: "category not found" })
             } else {
@@ -74,7 +74,7 @@ const updateCategory = async (req, res) => {
 const deleteCategory = async (req, res) => {
     try {
         const categDeleted = req.params.id
-        const result = await Category.deleteOne({ _id: categDeleted, user: req.user._id })
+        const result = await Category.deleteOne({ _id: categDeleted })
         if (result.deletedCount === 1) {
             res.json({
                 message: "Category deleted successfully",

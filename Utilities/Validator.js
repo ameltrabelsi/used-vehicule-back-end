@@ -20,7 +20,7 @@ const registerValidator = Joi.object({
   })
 
   const articleValidator = Joi.object({
-    brand : Joi.string().required().min(4).max(50),
+    brand : Joi.string().required().min(2).max(50),
     style: Joi.string().required(),
     description : Joi.string(),
     photo : Joi.string(),
